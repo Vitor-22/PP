@@ -18,7 +18,15 @@ function Header (){
     }
 
     const goToExames = ()=>{
-        
+        navigate('/exame')
+    }
+
+    const goToInicio = ()=>{
+        navigate('/inicial')
+    }
+
+    const goToReceitas = ()=>{
+        navigate('/receitas')
     }
 
     return(
@@ -32,7 +40,7 @@ function Header (){
                     <ImgIcon src={icon1}/>
                 </DivIcon>
                 <DivPalavras>
-                    <PalavrasMenu>Inicio</PalavrasMenu>
+                    <PalavrasMenu onClick={goToInicio}>Inicio</PalavrasMenu>
                 </DivPalavras>
             </DivBotoes>
 
@@ -41,7 +49,7 @@ function Header (){
                     <ImgIcon src={icon2}/>
                 </DivIcon>
                 <DivPalavras>
-                    <PalavrasMenu>Exames</PalavrasMenu>
+                    <PalavrasMenu onClick={goToExames}>Exames</PalavrasMenu>
                 </DivPalavras>
             </DivBotoes>
 
@@ -50,7 +58,7 @@ function Header (){
                     <ImgIcon src={icon3}/>
                 </DivIcon>
                 <DivPalavras>
-                    <PalavrasMenu>Receitas</PalavrasMenu>
+                    <PalavrasMenu onClick={goToReceitas}>Receitas</PalavrasMenu>
                 </DivPalavras>
             </DivBotoes>
 

@@ -9,7 +9,7 @@ function Inicial (){
   const navigate = useNavigate()
 
   const goToExames = ()=>{
-    navigate("Exames")
+    navigate("/exame")
   }
 
   return(

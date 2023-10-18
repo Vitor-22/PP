@@ -12,12 +12,10 @@ function Login() {
 
   const navigate = useNavigate()
 
-  const goToHome = ()=>{
-    navigate("Inicial")
-  }
+
 
   const goToCadastro = ()=>{
-    navigate("Cadastro")
+    navigate("/cadastro")
   }
 
   const saveUserInfoLocalStorage = (token)=>{
@@ -37,7 +35,7 @@ function Login() {
   }). then(response =>{
   alert(response.data.message)
   saveUserInfoLocalStorage(response.data.token)
-  goToHome()
+  navigate("/inicial")
 
   })
   .catch(error => console.log(error))
