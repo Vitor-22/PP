@@ -45,7 +45,7 @@ async function storeUser(request, response) {
     const params = Array(
         request.body.nome,
         request.body.email,
-        bcrypt.hashSync(request.body.senha, 10)
+        request.body.password
     );
 
     // Executa a ação no banco e valida os retornos para o client que realizou a solicitação
@@ -88,7 +88,7 @@ async function updateUser(request, response) {
     // Recuperar os dados enviados na requisição respectivamente
     const params = Array(
         request.body.nome,
-        bcrypt.hashSync(request.body.senha, 10),        
+        request.body.password,       
         request.params.id  // Recebimento de parametro da rota
     );
 

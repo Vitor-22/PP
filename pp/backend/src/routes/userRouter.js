@@ -17,4 +17,4 @@ router.post('/user/create', storeUser);
 router.put('/user/:id', updateUser);
 router.delete('/user/:id', deleteUser);
 
-module.exports = router;
+module.exports = router;    

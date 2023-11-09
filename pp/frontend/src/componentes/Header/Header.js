@@ -45,7 +45,7 @@ function Header (){
             </DivBotoes>
 
             <DivBotoes>
-                <DivIcon>
+                <DivIcon> 
                     <ImgIcon src={icon2}/>
                 </DivIcon>
                 <DivPalavras>

@@ -1,9 +1,7 @@
-// Importa as configurações do banco de dados na variável connection
+ // Importa as configurações do banco de dados na variável connection
 const connection = require('../config/db');
 // Importar o pacote dotenv, gerenciador de variáveis de ambiente
 require("dotenv").config();
-// Pacote para criptografar a senha de usuario
-const bcrypt = require('bcrypt');
 // Importar pacote que implementa o protocolo JSON Web Token
 const jwt = require('jsonwebtoken');
 
@@ -21,7 +19,7 @@ async function login(request, response) {
     connection.query(query, params, (err, results) => {
         try {            
             if (results.length > 0) {                
-                bcrypt.compare(request.body.senha, results[0].senha, (err, result) => {
+                if (request.body.password === results[0].password) {
                     if (err) {                        
                         return response.status(401).send({
                             msg: 'Email or password is incorrect!'
@@ -38,9 +36,8 @@ async function login(request, response) {
                             message: `Sucesso! Usuário conectado.`,
                             data: results
                         });
-                    }
-                })
-                
+                    }             
+                }
             } else {
                 response
                     .status(400)
