@@ -1,6 +1,5 @@
 import React from "react";
-import { CustomForm, CustomInput, CustomLabel, CustomLink, FormContainer, Logo, CustomInputSubmit, CustomP } from './styled';
-import logoImg from '../../assets/logo.png';
+import { CustomForm, CustomInput, CustomLabel, CustomLink, FormContainer, CustomInputSubmit, CustomP } from './styled';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import { api } from '../../services/api';
@@ -11,7 +10,7 @@ function Cadastro() {
     const [user_email, setUserEmail] = useState("");
     const [user_password, setUserPassword] = useState("");
     const [confirm_password, setConfirmPassword] = useState("");
-    const [user_Name, setUserName] = useState("");
+    const [user_name, setUserName] = useState("");
 
     const navigate = useNavigate()
     const goToLogin = () => {
@@ -22,7 +21,7 @@ function Cadastro() {
         e.preventDefault();
 
         const formData = {
-            nome: user_Name,
+            nome: user_name,
             email: user_email,
             password: user_password
         };
@@ -50,7 +49,7 @@ function Cadastro() {
                     <CustomLabel>Nome</CustomLabel>
                     <CustomInput type="text"
                         placeholder="nome"
-                        value={user_Name}
+                        value={user_name}
                         onChange={(e) => setUserName(e.target.value)}
                     />
 

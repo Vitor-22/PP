@@ -1,9 +1,6 @@
 // Importa as configurações do banco de dados na variável connection
 const connection = require('../config/db');
 
-// Pacote para criptografar a senha de usuario
-const bcrypt = require('bcrypt');
-
 // Função que retorna todos usuários no banco de dados
 async function listUsers(request, response) {
     // Preparar o comando de execução no banco
@@ -83,12 +80,12 @@ async function storeUser(request, response) {
 // Função que atualiza o usuário no banco
 async function updateUser(request, response) {
     // Preparar o comando de execução no banco
-    const query = "UPDATE usuarios SET `nome` = ?, `senha` = ? WHERE `id` = ?";
+    const query = "UPDATE usuarios SET `nome` = ?, `email` = ?, `senha` = ? WHERE `id` = ?";
 
     // Recuperar os dados enviados na requisição respectivamente
     const params = Array(
         request.body.nome,
-        request.body.password,       
+        request.body.senha,       
         request.params.id  // Recebimento de parametro da rota
     );
 

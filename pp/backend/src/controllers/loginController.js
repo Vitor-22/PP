@@ -5,6 +5,7 @@ require("dotenv").config();
 // Importar pacote que implementa o protocolo JSON Web Token
 const jwt = require('jsonwebtoken');
 
+
 // Authentication
 async function login(request, response) {
     // Preparar o comando de execução no banco
@@ -12,19 +13,15 @@ async function login(request, response) {
     
     // Recuperar credenciais informadas
     const params = Array(
-        request.body.email
+        request.body.email,
     );
 
     // Executa a ação no banco e valida os retornos para o client que realizou a solicitação
     connection.query(query, params, (err, results) => {
         try {            
             if (results.length > 0) {                
-                if (request.body.password === results[0].password) {
-                    if (err) {                        
-                        return response.status(401).send({
-                            msg: 'Email or password is incorrect!'
-                        });
-                    } else if(result) {
+                if (request.body.password === results[0].senha) {
+                    
                         const id = results[0].id;
                         const token = jwt.sign({ userId: id },'the-super-strong-secrect',{ expiresIn: 300 });
                         results[0]['token'] = token; 
@@ -36,8 +33,12 @@ async function login(request, response) {
                             message: `Sucesso! Usuário conectado.`,
                             data: results
                         });
-                    }             
-                }
+                } else {
+                    return response.status(401).send({
+                            msg: 'Email or password is incorrect!'
+                        });
+                }            
+                
             } else {
                 response
                     .status(400)
