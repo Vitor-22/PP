@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
 });
-
+ 
 // Testa se o banco esta conectado
 connection.connect(function(err) {
     if (err) {

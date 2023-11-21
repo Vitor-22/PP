@@ -3,9 +3,44 @@ import { DivInicio, DivTipoCard, IconExame, SubtituloData, DivDataCard, DivIconE
 import perfil from '../../assets/Perfil.png';
 import mais from '../../assets/mais.png';
 import iconexame from '../../assets/iconexames.png';
+import PublicarModal from "../../componentes/Header/PublicarModal/PublicarModal";
+import { useNavigate } from "react-router-dom";
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+} from '@chakra-ui/react'
+import { useDisclosure } from "@chakra-ui/react";
+import Publicacao from "../../componentes/Header/publicacao/publicacao";
+import { useEffect, useState } from "react";
+import { api } from '../../services/api';
 
 function Exames (){
     document.body.style.overflow = 'hidden';
+
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const [posts, setPosts] = useState([])
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await api.get('post/posts');
+
+                if (response.data) {
+                    setPosts(response.data.data)
+                } else {
+                    alert('Não foi possível puxar os posts');
+                }
+            } catch (error) {
+                alert('Erro ao buscar os dados. Verifique o console para mais detalhes.');
+            }
+        };
+
+        fetchData();
+
+    });
+
     return(
         <>
         <DivPrincipal>
@@ -31,7 +66,13 @@ function Exames (){
                         <TituloResultados>Resultados</TituloResultados>
                     </DivExamesSuperiorEsquerda>
                     <DivExamesSuperiorDireita>
-                        <IconMais src={mais}/>
+                        <IconMais src={mais} onClick={onOpen}/>
+                        <Modal isOpen={isOpen} onClose={onClose}>
+                        <ModalOverlay />
+                        <ModalContent>
+                            <PublicarModal close={onClose} />
+                        </ModalContent>
+                        </Modal>
                     </DivExamesSuperiorDireita>
                 </DivExamesSuperior>
 
@@ -41,29 +82,10 @@ function Exames (){
                     <DivTipo><SubtitulosDetalhes>Tipo</SubtitulosDetalhes></DivTipo>
                 </DivSubtitulosExames>
 
-                <DivExamesCard>
-                    <DivIconExame>
-                        <IconExame src={iconexame}/>
-                    </DivIconExame>
-                    <DivDataCard>
-                        <SubtituloData>26/05/2022</SubtituloData>
-                    </DivDataCard>
-                    <DivTipoCard>
-                        <SubtituloData>Mamografia</SubtituloData>
-                    </DivTipoCard>
-                </DivExamesCard>
-
-                <DivExamesCard>
-                    <DivIconExame>
-                        <IconExame src={iconexame}/>
-                    </DivIconExame>
-                    <DivDataCard>
-                        <SubtituloData>05/09/2022</SubtituloData>
-                    </DivDataCard>
-                    <DivTipoCard>
-                        <SubtituloData>Raio-X</SubtituloData>
-                    </DivTipoCard>
-                </DivExamesCard>
+            
+                {posts.map((posts, index) => (
+                    <Publicacao key={index} post={posts} conteudo={posts.dataexame} criado={posts.tipoexame}/>
+                ))}
 
             </DivExamesPrincipal>
 
