@@ -21,11 +21,17 @@ function Exames (){
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const [posts, setPosts] = useState([])
-    
+
+    const idUser = localStorage.getItem("user")
+
+    console.log("oiiii", idUser)
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await api.get('post/posts');
+                const response = await api.get(`/post/posts/${idUser}`);
+
+                console.log(response.data)
 
                 if (response.data) {
                     setPosts(response.data.data)
@@ -37,8 +43,7 @@ function Exames (){
             }
         };
 
-        fetchData();
-
+        fetchData(); 
     });
 
     return(

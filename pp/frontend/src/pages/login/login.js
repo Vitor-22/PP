@@ -6,9 +6,6 @@ import { api } from '../../services/api';
 
 function Login() {
 
-  // const[email, setEmail] = useState("");
-  // const[senha, setSenha] = useState("");
-
   const navigate = useNavigate()
 
   const goToCadastro = () => {
@@ -18,34 +15,6 @@ function Login() {
   const goToHome = () => {
     navigate("/inicial")
   }
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   const data = {
-  //       email,
-  //       senha
-  //   };
-
-  //   try{
-  //       const response = await api.post('/auth/login', data);
-
-  //       console.log(response.data);
-
-  //       if (response.data.success) {
-  //           alert('Login concluído');
-  //           // redireciona para home
-  //           goToHome()
-  //       } else {
-  //           alert('Não foi possível entrar');
-  //       }
-
-  //   } catch(error){
-  //       console.log(error)
-  //   }
-
-  // }
-
 
   const [user_email, setUserEmail] = useState("");
   const [user_password, setUserPassword] = useState("");
@@ -61,8 +30,9 @@ function Login() {
 
 
     const response = await api.post('/auth/login', formData);
-
     if (response.data.success) {
+      console.log(response.data.data[0].id);
+      localStorage.setItem('user', String(response.data.data[0].id));
       alert('Usuário conectado');
       // redireciona para login
       goToHome()

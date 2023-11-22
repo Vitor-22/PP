@@ -1,7 +1,7 @@
 const connection = require('../config/db');
 
 async function listPosts(request, response) {
-    const query = 'SELECT * FROM posts  ';
+    const query = "SELECT * FROM posts WHERE `id` = ?";
 
     connection.query(query, (err, results) => {        
         if (results) {
@@ -27,12 +27,13 @@ async function listPosts(request, response) {
 
 async function storePost(request, response) {    
     const params = Array(
-        request.body.img_post,
         request.body.data_post,
-        request.body.tipo_exame    
+        request.body.img_post,
+        request.body.tipo_exame,
+        request.body.id  
     );
     
-    const query = 'INSERT INTO posts(data_post, img_post, tipo_exame) values(?,?,?);';
+    const query = 'INSERT INTO posts(data_post, img_post, tipo_exame, id) values(?,?,?,?);';
     console.log(params)
     connection.query(query, params, (err, results) => {        
         if (results) {

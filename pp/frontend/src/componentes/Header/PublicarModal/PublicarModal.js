@@ -17,7 +17,7 @@ const PublicarModal = ({ onPublish }, props) => {
       id: idUser
   
     };
-
+    console.log(idUser)
     console.log(data);
     const response = await api.post('post/create', data);
 
